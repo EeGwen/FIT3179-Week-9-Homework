@@ -1,11 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Malaysia AQ Monitoring map</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 18px; background: #fff; color: #222; }
+    #vis { max-width: 1000px; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+  </style>
 </head>
 <body>
-    
+  <h1>Malaysia — Air Quality Monitoring Locations</h1>
+  <div id="vis"></div>
+
+  <script>
+    // The JSON spec file must be in the same repo. Use relative path to avoid cross-origin issues.
+    vegaEmbed('#vis', 'air_pollution_locations.vg.json', {actions: true, defaultStyle: true})
+      .then(result => { /* success */ })
+      .catch(err => console.error(err));
+  </script>
 </body>
 </html>
