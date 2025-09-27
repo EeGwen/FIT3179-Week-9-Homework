@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Air Pollution Monitoring locations. Points colored by whether PWStation (official station code) exists.",
   "width": 900,
-  "height": 600,
+  "height": 585,
   "title": {
     "text": "Air Quality Monitoring Locations in Malaysia",
     "subtitle": "Blue = Official monitoring station (PWStation present). Data: full_locations_trimmed.csv"
