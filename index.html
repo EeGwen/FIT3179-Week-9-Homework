@@ -18,7 +18,6 @@
   <div id="vis"></div>
 
   <script>
-    // The JSON spec file must be in the same repo. Use relative path to avoid cross-origin issues.
     vegaEmbed('#vis', 'air_pollution_locations.vg.json', {actions: true, defaultStyle: true})
       .then(result => { /* success */ })
       .catch(err => console.error(err));
