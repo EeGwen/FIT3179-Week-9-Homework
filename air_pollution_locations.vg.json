@@ -2,10 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Air Pollution Monitoring locations. Points colored by whether PWStation (official station code) exists.",
   "width": 900,
-  "height": 585,
+  "height": 580,
   "title": {
     "text": "Air Quality Monitoring Locations in Malaysia",
-    "subtitle": "Blue = Official monitoring station (PWStation present). Data: full_locations_trimmed.csv"
+    "subtitle": "Graticule = 10° (light grey). Blue = official station (PWStation). Data: full_locations_trimmed.csv"
   },
   "projection": {
     "type": "mercator",
@@ -16,15 +16,52 @@
     {
       "data": {
         "url": "https://raw.githubusercontent.com/EeGwen/FIT3179-Week-9-Homework/refs/heads/main/ne_110m.json",
+        "format": { "type": "topojson", "feature": "ne_110m_ocean" }
+      },
+      "mark": { "type": "geoshape", "fill": "#eaf4ff", "stroke": null }
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/EeGwen/FIT3179-Week-9-Homework/refs/heads/main/ne_110m.json",
+        "format": { "type": "topojson", "feature": "ne_110m_graticules_10" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#d3d3d3",
+        "strokeWidth": 0.5,
+        "opacity": 0.85
+      }
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/EeGwen/FIT3179-Week-9-Homework/refs/heads/main/ne_110m.json",
         "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
       },
-      "mark": { "type": "geoshape", "fill": "#f5f7fb", "stroke": "#cfd8e3" },
+      "mark": { "type": "geoshape", "fill": "#f7f8fb", "stroke": "#c9c9cf", "strokeWidth": 0.7 },
       "encoding": {
         "tooltip": [
           { "field": "properties.NAME", "type": "nominal", "title": "Country" }
         ]
       }
     },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/EeGwen/FIT3179-Week-9-Homework/refs/heads/main/ne_110m.json",
+        "format": { "type": "topojson", "feature": "ne_110m_rivers_lake_centerlines" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#9ecae1",
+        "strokeWidth": 0.6,
+        "opacity": 0.9
+      }
+    },
+
     {
       "data": {
         "url": "https://raw.githubusercontent.com/EeGwen/FIT3179-Week-9-Homework/refs/heads/main/full_locations_trimmed.csv",
@@ -35,22 +72,17 @@
           "calculate": "datum.PWStation != null && datum.PWStation !== '' ? 'Official (PWStation)' : 'Other / Unknown'",
           "as": "station_type"
         },
-        {
-          "filter": "datum.latitude != null && datum.longitude != null"
-        }
+        { "filter": "datum.latitude != null && datum.longitude != null" }
       ],
-      "mark": { "type": "circle", "stroke": "white", "strokeWidth": 0.6, "opacity": 0.95 },
+      "mark": { "type": "circle", "stroke": "#ffffff", "strokeWidth": 0.6, "opacity": 0.95 },
       "encoding": {
         "longitude": { "field": "longitude", "type": "quantitative" },
         "latitude": { "field": "latitude", "type": "quantitative" },
-        "size": { "value": 120 },
+        "size": { "value": 100 },
         "color": {
           "field": "station_type",
           "type": "nominal",
-          "scale": {
-            "domain": ["Other / Unknown", "Official (PWStation)"],
-            "range": ["#ff7f0e", "#1f77b4"]
-          },
+          "scale": { "domain": ["Other / Unknown", "Official (PWStation)"], "range": ["#ff7f0e", "#1f77b4"] },
           "legend": { "title": "Station type" }
         },
         "tooltip": [
@@ -62,13 +94,6 @@
           { "field": "station_type", "type": "nominal", "title": "Station type" }
         ]
       }
-    },
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/EeGwen/FIT3179-Week-9-Homework/refs/heads/main/ne_110m.json",
-        "format": { "type": "topojson", "feature": "ne_110m_graticules_30" }
-      },
-      "mark": { "type": "geoshape", "stroke": "#dbe6f2", "strokeWidth": 0.5, "fill": null }
     }
   ]
 }
